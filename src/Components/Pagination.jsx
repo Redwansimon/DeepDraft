@@ -1,27 +1,23 @@
-// import React from 'react'
-
-// const Pagination = ({onPageChange, currentpage, blogs, pageSize}) => {
-//     const totalpages= Math.ceil(blogs.length / pageSize)
-//     console.log(totalpages)
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Pagination
 
 import React from 'react';
 
 const Pagination = ({ onPageChange, currentpage, blogsCount, pageSize }) => {
   const totalpages = Math.ceil(blogsCount / pageSize);
-  console.log(totalpages)
 
-  if (totalpages <= 1) return null;
+  if (totalpages <= 1) return null; // No pagination needed if only 1 page
 
   return (
-    <div className="flex gap-2 justify-center mt-6">
+    <div className="flex flex-wrap gap-2 justify-center mt-6 items-center">
+      {/* Previous Button */}
+      <button
+        onClick={() => onPageChange(currentpage - 1)}
+        disabled={currentpage === 1}
+        className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+      >
+        Previous
+      </button>
+
+      {/* Page Number Buttons */}
       {[...Array(totalpages)].map((_, index) => {
         const pageNumber = index + 1;
         return (
@@ -36,8 +32,17 @@ const Pagination = ({ onPageChange, currentpage, blogsCount, pageSize }) => {
           </button>
         );
       })}
+
+      {/* Next Button */}
+      <button
+        onClick={() => onPageChange(currentpage + 1)}
+        disabled={currentpage === totalpages}
+        className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+      >
+        Next
+      </button>
     </div>
   );
 };
 
-export default Pagination; // ✅ Make sure this line exists
+export default Pagination;

@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { FaBars, FaDribbble, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom'
+import Modal from './Modal';
 
 const Navbar = () => {
     const [ismenuopen, setismenuopen] = useState(false);
+    const [isModalopen, setIsModalOpen] = useState(false)
+
     const togglemenu = () => {
         setismenuopen(!ismenuopen);
         console.log(ismenuopen)
@@ -16,6 +19,14 @@ const Navbar = () => {
         { path: "/blogs", link: "Blogs" },
         { path: "/contact", link: "Contact" }
     ]
+    // midal details
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
+
     return (
         <header className='bg-black text-white top-0 left-0 right-0'>
             <nav className='px-4 py-4 max-w-7xl flex justify-between items-center mx-auto '>
@@ -48,8 +59,12 @@ const Navbar = () => {
                     <a href="/" className='hover:text-orange-500'><FaFacebook /></a>
                     <a href="/" className='hover:text-orange-500'><FaDribbble /></a>
                     <a href="/" className='hover:text-orange-500'><FaTwitter /></a>
-                    <button className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white hover:text-orange-500 transition-all duration-200 ease-in'>Log in</button>
+                    <button onClick={openModal} className='bg-orange-500 px-6 py-2 font-medium rounded hover:bg-white hover:text-orange-500 transition-all duration-200 ease-in'>Log in</button>
                 </div>
+
+                    {/* Modal */}
+                    <Modal isOpen={isModalopen} onClose={closeModal}></Modal>
+
                 {/* mobile menu button , display only the mobile screen */}
                 <div className='md:hidden'>
                     <button onClick={togglemenu} className='cursor-pointer'>
